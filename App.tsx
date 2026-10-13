@@ -15,7 +15,10 @@ export default function App() {
 
   const addTransaction = (type: string) => {
     const num = parseFloat(inputValue);
-    if (isNaN(num) || num <= 0) return;
+    if (!inputValue.trim() || isNaN(num) || num <= 0) {
+      alert('Erro: Por favor, digite apenas números válidos maiores que zero.');
+      return;
+    }
 
     const newTransaction = {
       id: Date.now().toString(),
@@ -39,34 +42,44 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={{ margin: 20 }}>
+    <SafeAreaView style={{ flex: 1, margin: 20 }}>
       <TextInput
         placeholder="Digite o valor"
         value={inputValue}
         onChangeText={setInputValue}
         keyboardType="numeric"
+        style={{ borderWidth: 1, borderColor: '#ccc', padding: 8, marginBottom: 10 }}
       />
 
-      <Button title="Entrou" color="green" onPress={() => addTransaction('Entrou')} />
-      <Button title="Saiu" color="red" onPress={() => addTransaction('Saiu')} />
+      <View style={{ marginVertical: 5 }}>
+        <Button title="Entrou" color="green" onPress={() => addTransaction('Entrou')} />
+      </View>
+      <View style={{ marginVertical: 5 }}>
+        <Button title="Saiu" color="red" onPress={() => addTransaction('Saiu')} />
+      </View>
 
-      <Text style={{ marginVertical: 10 }}>Total: R$ {total.toFixed(2)}</Text>
+      <Text style={{ marginVertical: 10, fontSize: 16, fontWeight: 'bold' }}>
+        Total: R$ {total.toFixed(2)}
+      </Text>
 
-      <Text style={{ fontWeight: 'bold' }}>Histórico</Text>
+      <Text style={{ fontWeight: 'bold', marginTop: 10, marginBottom: 5 }}>Histórico</Text>
 
-      <FlatList
-        data={transactions}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-            <Text>{item.type}: R$ {item.value.toFixed(2)} </Text>
-            <Button title="X"  color="red" onPress={() => deleteTransaction(index)} />
-          </View>
-        )}
-        ListEmptyComponent={
-          <Text>Nenhuma transação ainda.</Text>
-        }
-      />
+      {/* Adicionado flex: 1 aqui para garantir que a lista apareça perfeitamente */}
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={transactions}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 5, padding: 5, backgroundColor: '#f0f0f0' }}>
+              <Text>{item.type}: R$ {item.value.toFixed(2)}</Text>
+              <Button title="X" color="gray" onPress={() => deleteTransaction(index)} />
+            </View>
+          )}
+          ListEmptyComponent={
+            <Text style={{ color: '#888', fontStyle: 'italic' }}>Nenhuma transação ainda.</Text>
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 }

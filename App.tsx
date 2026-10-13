@@ -47,8 +47,8 @@ export default function App() {
         keyboardType="numeric"
       />
 
-      <Button title="Entrou" onPress={() => addTransaction('Entrou')} />
-      <Button title="Saiu" onPress={() => addTransaction('Saiu')} />
+      <Button title="Entrou" color="green" onPress={() => addTransaction('Entrou')} />
+      <Button title="Saiu" color="red" onPress={() => addTransaction('Saiu')} />
 
       <Text style={{ marginVertical: 10 }}>Total: R$ {total.toFixed(2)}</Text>
 
@@ -60,7 +60,7 @@ export default function App() {
         renderItem={({ item, index }) => (
           <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
             <Text>{item.type}: R$ {item.value.toFixed(2)} </Text>
-            <Button title="Delete" onPress={() => deleteTransaction(index)} />
+            <Button title="X"  color="red" onPress={() => deleteTransaction(index)} />
           </View>
         )}
         ListEmptyComponent={

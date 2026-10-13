@@ -48,7 +48,7 @@ export default function App() {
         value={inputValue}
         onChangeText={setInputValue}
         keyboardType="numeric"
-        style={{ borderWidth: 1, borderColor: '#ccc', padding: 8, marginBottom: 10 }}
+        style={{ borderWidth: 1, borderColor: '#ccd', padding: 8, marginBottom: 10 }}
       />
 
       <View style={{ marginVertical: 5 }}>
@@ -64,19 +64,18 @@ export default function App() {
 
       <Text style={{ fontWeight: 'bold', marginTop: 10, marginBottom: 5 }}>Histórico</Text>
 
-      {/* Adicionado flex: 1 aqui para garantir que a lista apareça perfeitamente */}
       <View style={{ flex: 1 }}>
         <FlatList
           data={transactions}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item, index }) => (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 5, padding: 5, backgroundColor: '#f0f0f0' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginVertical: 5, padding: 5, backgroundColor: '#f0f0f1' }}>
               <Text>{item.type}: R$ {item.value.toFixed(2)}</Text>
               <Button title="X" color="gray" onPress={() => deleteTransaction(index)} />
             </View>
           )}
           ListEmptyComponent={
-            <Text style={{ color: '#888', fontStyle: 'italic' }}>Nenhuma transação ainda.</Text>
+            <Text style={{ color: '#887', fontStyle: 'italic' }}>Nenhuma transação ainda.</Text>
           }
         />
       </View>
